@@ -10,6 +10,8 @@ var minifyHTML = require('gulp-minify-html');
 var htmlify = require('gulp-angular-htmlify');
 var compressor = require('gulp-compressor');
 var angularTemplatecache = require('gulp-angular-templatecache');
+var addStream = require('add-stream');
+
 
 var baseDirs = {
   root: './',
@@ -50,23 +52,6 @@ var concatFilenames = {
 };
 
 var startupScript = 'server.js';
-
-var config = {
-    htmltemplates: [
-    baseDirs.app + 'views/*.html',
-    baseDirs.app + 'views/**/*.html',
-    ],
-    templateCache: {
-        file: 'templateCache.js',
-        options: {
-            module: 'templateCache',
-            root: 'views/',
-            standAlone: true
-        }
-    },
-    temp: baseDirs.app
-};
-
  
 gulp.task('clean', function() {
   return gulp.src(baseDirs.dist, {read: false}).pipe(clean());
@@ -135,18 +120,7 @@ gulp.task('dist:minifyjs', function() {
     .pipe(gulp.dest(baseDirs.dist + publicDirs.js));
 });
 
-gulp.task('dev:templatecache', function() {
-    console.log('Creating an AngularJS $templateCache');
-    return gulp
-        .src(config.htmltemplates)
-        .pipe(angularTemplatecache(
-            config.templateCache.file,
-            config.templateCache.options
-        ))
-        .pipe(gulp.dest(config.temp));
-});
-gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dev:minifyhtml']);
-gulp.task('template', ['dev:templatecache']);
 gulp.task('server', ['nodemon', 'watch']);
+gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dev:minifyhtml']);
 gulp.task('dev', ['dev:concatjs', 'dev:concatcss', 'dev:minifyhtml', 'dist:minifycss', 'dist:minifyjs', 'nodemon', 'watch']);
 gulp.task('prod', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs']);

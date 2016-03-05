@@ -11,6 +11,7 @@
     "morgan": "^1.7.0"
   },
   "devDependencies": {
+    "add-stream": "^1.0.0",
     "gulp": "^3.8.10",
     "gulp-angular-htmlify": "^2.3.0",
     "gulp-clean": "^0.3.1",
