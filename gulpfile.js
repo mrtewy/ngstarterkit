@@ -58,6 +58,8 @@ var startupScript = 'server.js';
  
 function prepareTemplates() {
   return gulp.src(baseDirs.app+'views/**/*.html')
+  	.pipe(htmlify())
+    .pipe(minifyHTML({empty: true}))
     .pipe(angularTemplateCache({
       module:'appTemplates', 
       standalone: true, 
