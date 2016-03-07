@@ -9,7 +9,7 @@ var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
 var htmlify = require('gulp-angular-htmlify');
 var compressor = require('gulp-compressor');
-var angularTemplatecache = require('gulp-angular-templatecache');
+var angularTemplateCache = require('gulp-angular-templatecache');
 var addStream = require('add-stream');
 
 
@@ -31,14 +31,16 @@ var bowerComponentsDir = baseDirs.root + 'bower_components/';
 // Bower components first!
 var appFiles = {
   js: [
-    bowerComponentsDir + '**/*.min.js', // source bower
+    bowerComponentsDir + 'jquery/dist/jquery.min.js', // source bower
+    bowerComponentsDir + 'angular/angular.min.js', // source bower
+    bowerComponentsDir + 'angular-route/angular-route.min.js', // source bower
+    bowerComponentsDir + 'bootstrap/dist/js/bootstrap.min.js', // source bower
     baseDirs.app + 'assets/js/*.js', // static js
     baseDirs.app + '*.js', // main app js
     baseDirs.app + '**/*.js', // controller, service js
-    baseDirs.root + 'tmp/*.js' // templatas file
   ],
   css: [
-    bowerComponentsDir + '**/*.min.css', // source css
+    bowerComponentsDir + 'bootstrap/dist/css/bootstrap.min.css', // source css
     baseDirs.app + 'assets/css/**/*.css' // 
   ],
   index: [
@@ -53,12 +55,23 @@ var concatFilenames = {
 
 var startupScript = 'server.js';
  
+function prepareTemplates() {
+  return gulp.src(baseDirs.app+'views/**/*.html')
+    .pipe(angularTemplateCache({
+      module:'appTemplates', 
+      standalone: true, 
+      root: 'views/'
+    }));
+}
+
 gulp.task('clean', function() {
   return gulp.src(baseDirs.dist, {read: false}).pipe(clean());
 });
 
 gulp.task('dev:concatjs', function () {
   return gulp.src(appFiles.js)
+    .pipe(uglify())
+    .pipe(addStream.obj(prepareTemplates()))
     .pipe(concat(concatFilenames.js))
     .pipe(gulp.dest(baseDirs.root + publicDirs.js));
 });
@@ -120,7 +133,5 @@ gulp.task('dist:minifyjs', function() {
     .pipe(gulp.dest(baseDirs.dist + publicDirs.js));
 });
 
-gulp.task('server', ['nodemon', 'watch']);
-gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dev:minifyhtml']);
-gulp.task('dev', ['dev:concatjs', 'dev:concatcss', 'dev:minifyhtml', 'dist:minifycss', 'dist:minifyjs', 'nodemon', 'watch']);
-gulp.task('prod', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs']);
+gulp.task('watch', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs','dev:minifyhtml', 'nodemon', 'watch']);
+gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs', 'dev:minifyhtml']);
