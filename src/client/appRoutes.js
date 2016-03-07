@@ -1,10 +1,14 @@
 angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
-      when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'SampleController'
+      when('/', {
+        templateUrl: 'views/home.feed.html',
+        controller: 'HomeController'
+      }).
+      when('/404', {
+        templateUrl: 'views/404.html'
       }).
       otherwise({
-        redirectTo: '/home'
+        redirectTo: '/404'
       });
+      $locationProvider.html5Mode(false).hashPrefix('!');
 }]);

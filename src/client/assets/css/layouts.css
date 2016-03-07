@@ -1,0 +1,17 @@
+/* Main layout */
+.page-container {
+	margin:100px auto;
+}
+
+/* Home page */
+#main-content {
+	min-height: 1000px;
+}
+
+
+
+
+/* Error page */
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }

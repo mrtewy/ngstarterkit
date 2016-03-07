@@ -1,8 +1,9 @@
 angular.module('sampleApp', 
-	[
-	'ngRoute', 
+	[ 
+	'ngRoute',
 	'appTemplates',
 	'appRoutes', 
-	'ngSampleController', 
-	'ngSampleService', 
+	'appUserController',
+	'appHomeController', 
+	'ngSampleService'
 	]);

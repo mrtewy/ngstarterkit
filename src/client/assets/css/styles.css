@@ -1,0 +1,106 @@
+/* Main layouts */
+@import 'layouts.css';
+
+/* Popup */
+@import 'popup-form.css';
+
+/* Write page */
+@import 'write-form.css';
+
+body {
+	background: #f5f5f5;
+    color: #404040;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+/* Button */
+a.my-button {
+    background-color: #3d77b4;
+    background-image: -webkit-linear-gradient(top, rgb(70, 135, 206) 0%, rgb(48, 104, 162) 100%);
+    background-image: -moz-linear-gradient(top, rgb(70, 135, 206) 0%, rgb(48, 104, 162) 100%);
+    border-radius: 0px;
+    border: 1px solid #1e4c7a;
+    color: #ffffff;
+    display: inline-block;
+    height: auto;
+    text-align: center;
+    text-shadow: rgb(32, 80, 129) 0px 1px 0px;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* Navbar */
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: rgb(26, 66, 107);
+    border-left: 1px solid #31577D;
+    border-right: 1px solid #31577D;
+}
+.navbar-inverse {
+	background: #205081;
+    border-bottom: 1px solid #1B426B;
+}
+.navbar .img-logo {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    top: -4px;
+}
+.navbar a i {
+    font-size: 20px;
+}
+.img-nav {
+    width: 25px;
+    height: 25px;
+    margin-top: -3px;
+}
+.navbar-nav li {
+	margin-left: 5px;
+}
+.navbar-form {
+    margin-top: 6px;
+}
+
+/* Footer */
+.footer-links {
+	font-size: 80%;
+}
+
+
+/* Panel */
+.panel-white {
+    border: 1px solid #ddd;
+}
+.panel-white .panel-title {
+    font-size: 13px;
+}
+.panel-white .panel-heading {
+    box-shadow: 0 1px 7px rgba(0,0,0,.14);
+    color: #333;
+}
+.panel-white .panel-heading a {
+	font-size: 12px;
+	position: relative;
+    top: -2px;
+}
+.panel-white .panel-footer, .panel-white .panel-heading {
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+
+
+
+
+
+
+

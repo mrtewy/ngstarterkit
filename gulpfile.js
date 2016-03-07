@@ -35,6 +35,7 @@ var appFiles = {
     bowerComponentsDir + 'angular/angular.min.js', // source bower
     bowerComponentsDir + 'angular-route/angular-route.min.js', // source bower
     bowerComponentsDir + 'bootstrap/dist/js/bootstrap.min.js', // source bower
+    // bowerComponentsDir + 'angular-ui-router/release/js/angular-ui-router.min.js', // source bower
     baseDirs.app + 'assets/js/*.js', // static js
     baseDirs.app + '*.js', // main app js
     baseDirs.app + '**/*.js', // controller, service js
@@ -78,6 +79,7 @@ gulp.task('dev:concatjs', function () {
 
 gulp.task('dev:concatcss', function () {
   return gulp.src(appFiles.css)
+    .pipe(minifyCss())
     .pipe(concat(concatFilenames.css))
     .pipe(gulp.dest(baseDirs.root + publicDirs.css));
 });
