@@ -11,6 +11,8 @@ var htmlify = require('gulp-angular-htmlify');
 var compressor = require('gulp-compressor');
 var angularTemplateCache = require('gulp-angular-templatecache');
 var addStream = require('add-stream');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 
 var baseDirs = {
@@ -67,8 +69,19 @@ function prepareTemplates() {
     }));
 }
 
+
 gulp.task('clean', function() {
   return gulp.src(baseDirs.dist, {read: false}).pipe(clean());
+});
+
+gulp.task('dev:imageminify', () => {
+  return gulp.src(baseDirs.app + 'assets/images/*')
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest(publicDirs.img));
 });
 
 gulp.task('dev:concatjs', function () {
@@ -125,17 +138,17 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('dist:minifycss', function() {
+gulp.task('dev:minifycss', function() {
   return gulp.src(baseDirs.app + publicDirs.css + concatFilenames.css)
     .pipe(minifyCss())
     .pipe(gulp.dest(baseDirs.dist + publicDirs.css));
 });
 
-gulp.task('dist:minifyjs', function() {
+gulp.task('dev:minifyjs', function() {
   return gulp.src(baseDirs.app + publicDirs.js + concatFilenames.js)
     .pipe(uglify())
     .pipe(gulp.dest(baseDirs.dist + publicDirs.js));
 });
 
-gulp.task('watch', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs','dev:minifyhtml', 'nodemon', 'watch']);
-gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dist:minifycss', 'dist:minifyjs', 'dev:minifyhtml']);
+gulp.task('watch', ['dev:concatjs', 'dev:concatcss', 'dev:minifycss', 'dev:minifyjs','dev:minifyhtml', 'nodemon', 'watch']);
+gulp.task('default', ['dev:concatjs', 'dev:concatcss', 'dev:minifycss', 'dev:minifyjs', 'dev:minifyhtml','dev:imageminify']);
